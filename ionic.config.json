@@ -1,0 +1,7 @@
+{
+  "name": "iv-background-lock-issue",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
