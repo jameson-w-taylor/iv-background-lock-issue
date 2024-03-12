@@ -7,7 +7,7 @@ This brief webview shown by AC dismisses quickly enough it seems the app backgro
 
 This can be observed by following the steps shown within the UI of the application on an Android device. With the Android Studio debugger running and a breakpoint on line 218 in `VaultBase.java`, the `backgroundEnteredTimestamp` variable will be null when it shouldn't be.
 
-The customer mentioned they saw it on several Samsung devices, but I was able to reproduce this on a Xiaomi device as well. This does _not_ appear to reproduce on iOS. After reverting to v5.11.x of IV, the issue does not present itself.
+The customer mentioned they saw it on several Samsung devices, but I was able to reproduce this on a Xiaomi device as well. This does _not_ appear to reproduce on iOS. After reverting to v5.11.x of IV, the issue does not present itself (see [this branch](https://github.com/jameson-w-taylor/iv-background-lock-issue/tree/iv-5.11.x)).
 
 ## Developer Setup
 This assumes you have a properly setup environment. The iOS and Android platforms have already been added, so opening those projects and running them on devices should be all that's needed.
