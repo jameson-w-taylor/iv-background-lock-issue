@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BrowserVault, DeviceSecurityType, Vault, VaultType } from '@ionic-enterprise/identity-vault';
+import { DeviceSecurityType, Vault, VaultType } from '@ionic-enterprise/identity-vault';
 import { VaultFactory } from './vault.factory';
 import { AuthResult } from '@ionic-enterprise/auth';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
@@ -9,7 +9,7 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 })
 export class SessionVaultService {
   private key = 'session';
-  private vault: BrowserVault | Vault;
+  private vault: Vault;
   private lockedSubject: BehaviorSubject<{ locked: boolean; timeout?: boolean; } | undefined>;
 
   readonly lockAfterBackgrounded = 60000;
