@@ -1,20 +1,63 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Reproduction
     </ion-title>
+    <ion-buttons slot="end">
+      <ion-button *ngIf="authenticated" (click)="logout()">
+        Logout
+        <ion-icon name="log-out" slot="end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+<ion-content>
+  <ion-list [inset]="true">
+    <ion-item>
+      <ion-label>
+        Step 1
+        <p>User: test&#64;ionic.io</p>
+        <p>PW: Ion54321</p>
+      </ion-label>
+      <ion-button *ngIf="!authenticated" slot="end" (click)="login()">
+        Login
+        <ion-icon aria-hidden="true" name="log-in" slot="end"></ion-icon>
+      </ion-button>
+      <ion-icon *ngIf="authenticated" aria-hidden="true" color="success" name="checkmark" slot="end"></ion-icon>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Step 2
+        <h4>Invoke <code>AuthConnect.login()</code> again with an already active session</h4>
+      </ion-label>
+      <ion-note *ngIf="!authenticated" color="danger" slot="end">
+        Step #1 Required
+      </ion-note>
+      <ion-button *ngIf="authenticated" slot="end" (click)="login(true)">
+        Login
+        <ion-icon aria-hidden="true" name="log-in" slot="end"></ion-icon>
+      </ion-button>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Step 3
+        <h4>Observe if IV was locked due to timeout</h4>
+        <p *ngIf="timeout === true">Actual background time: {{observedBackgroundTime}}</p>
+        <p *ngIf="timeout === true"><code>lockAfterBackgrounded</code>: {{configuredBackgroundThreshold}}</p>
+      </ion-label>
+      <div slot="end">
+        <ion-icon *ngIf="vaultLocked === false" aria-hidden="true" size="default" name="lock-open"></ion-icon>
+        <ion-icon *ngIf="vaultLocked === true" aria-hidden="true" [color]="timeout === true ? 'danger' : undefined" name="lock-closed"></ion-icon>
+        <ion-icon *ngIf="vaultLocked === true && timeout === true" aria-hidden="true" color="danger" name="timer"></ion-icon>
+      </div>
+    </ion-item>
+  </ion-list>
+  <ion-note color="medium" class="ion-margin-horizontal">
+    <span class="ion-margin-vertical">When trying to log in with an already active session, the authentication webview shows briefly and then closes itself.</span>
+    <span class="ion-margin-vertical">Identity Vault doesn't appear to handle <code>lockAfterBackgrounded</code> properly on Android in this scenario.</span>
+    <span class="ion-margin-vertical">Internal code to handle the backgrounded event isn't executed so does not store a timestamp, but <em>does</em> detect the app resume event.</span>
+    <span class="ion-margin-vertical">Because of this, when the app returns from the webview IV locks the vault and indicates it was due to a timeout (even though it didn't meet the configured threshold).</span>
+    <span class="ion-margin-vertical">When this happens, <strong>Step 3</strong> will show a red lock and timer icon while the Vault is locked.</span>
+  </ion-note>
 </ion-content>
