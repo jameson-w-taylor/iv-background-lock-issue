@@ -1,7 +1,7 @@
 # Identity Vault Issue Reproduction
 This application was created to demonstrate an issue on Android where `lockAfterBackgrounded` is not working properly in a specific scenario.
 
-In this branch, the issue is present. It does not occurr if the application reverts to v5.11.x of IV (see [this branch](https://github.com/jameson-w-taylor/iv-background-lock-issue/tree/iv-5.11.x)).
+In this branch, the issue is present. It does not occur if the application reverts to v5.11.x of IV (see [this branch](https://github.com/jameson-w-taylor/iv-background-lock-issue/tree/iv-5.11.x)).
 
 For context, a customer has a requirement where an initial login does _not_ request a refresh token from their authentication provider. Later on, if a user opts-in to a more secure `Vault` type the app will re-invoke `AuthConnect.login()` with a modified scope to then request a refresh token they can securely store.
 
